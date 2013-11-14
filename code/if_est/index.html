@@ -1,0 +1,293 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>Methods to Estimate the Instantaneous Frequency (IF) of EEG Periodic Discharges &#8211; signal-plus-noise /sn/</title>
+<meta name="description" content="">
+<meta name="keywords" content="code, matlab, time-frequency distributions, algorithms, instantaneous frequency">
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Methods to Estimate the Instantaneous Frequency (IF) of EEG Periodic Discharges">
+<meta property="og:description" content="code+publications for JM O' Toole">
+<meta property="og:url" content="/code/if_est/index.html">
+<meta property="og:site_name" content="signal-plus-noise /sn/">
+
+
+
+
+
+<link rel="canonical" href="/code/if_est/">
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="signal-plus-noise /sn/ Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700|PT+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.min.css">
+
+<!--[if (lt IE 9) & (!IEMobile)]>
+<link rel="stylesheet" href="/assets/css/ie.min.css">
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- Load Modernizr -->
+<script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+</head>
+
+<body class="page" itemscope itemtype="http://schema.org/WebPage">
+
+<!--[if lt IE 9]><div class="browser-upgrade alert alert-info">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div><![endif]-->
+
+<div class="navigation-wrapper">
+	<div class="site-name">
+		<a href="">signal-plus-noise /sn/</a>
+	</div><!-- /.site-name -->
+	<div class="top-navigation">
+		<nav role="navigation" itemscope itemtype="http://schema.org/SiteNavigationElement">
+		    <ul>
+		        
+				<li><a href="/about" >About</a></li>
+		        
+				<li><a href="/pubs" >Publications</a></li>
+		        
+				<li><a href="/code" >Code</a></li>
+		        
+		        <li><i class="icon-feed"></i> <a href="/feed.xml" title="Atom/RSS feed">Feed</a>
+		    </ul>
+		</nav>
+	</div><!-- /.top-navigation -->
+</div><!-- /.navigation-wrapper -->
+
+
+
+<div id="main" role="main"  itemprop="mainContentOfPage">
+  <div class="article-author-top">
+    <img src="/images/bio-photo.jpg" class="bio-photo" alt="J.M. O' Toole bio photo"></a>
+<h3>J.M. O' Toole</h3>
+<p>Researcher @ Neonatal Brain Research Group, UCC, Ireland. Topic: biomedical signal processing</p>
+
+
+
+
+
+<a href="http://github.com/https://github.com/otoolej" class="author-social" target="_blank"><i class="icon-github"></i> Github</a>
+
+
+  </div>
+  <article itemscope itemtype="http://schema.org/CreativeWork">
+    <h1 itemprop="name">Methods to Estimate the Instantaneous Frequency (IF) of EEG Periodic Discharges</h1>
+    <div class="article-wrap" itemprop="text">
+      <section id="table-of-contents" class="toc">
+  <header>
+    <h3>Contents</h3>
+  </header>
+<div id="drawer">
+<ul id="markdown-toc">
+  <li><a href="#download">Download</a></li>
+  <li><a href="#quick-start">Quick Start</a>    <ul>
+      <li><a href="#files">Files</a></li>
+      <li><a href="#example-1">Example 1</a></li>
+      <li><a href="#example-2">Example 2</a></li>
+    </ul>
+  </li>
+  <li><a href="#synthetic-signals">Synthetic Signals</a>    <ul>
+      <li><a href="#example-3">Example 3</a></li>
+    </ul>
+  </li>
+  <li><a href="#requirements">Requirements</a></li>
+  <li><a href="#test-computer-setup">Test Computer Setup</a></li>
+  <li><a href="#licence">Licence</a></li>
+  <li><a href="#references">References</a></li>
+</ul>
+
+  </div>
+</section>
+<!-- /#table-of-contents -->
+
+<p>Collection of M-files (computer code) implements a method to estimate the IF for periodic discharges on EEG <a href="#references">[1]</a>.  Requires Matlab or Octave (programming environments) and the <a href="/code/fast_TFDs/">fast_TFDs</a> package.</p>
+
+<h2 id="download">Download</h2>
+<p><a href="https://github.com/otoolej/IF_estimation_PLEDs/zipball/master" class="btn">download IF_estimation_PLEDs</a>   (or fork on <a href="https://github.com/otoolej/IF_estimation_PLEDs">github</a>)</p>
+
+<h2 id="quick-start">Quick Start</h2>
+<p>The first and necessary step is to add paths so Matlab can find all the code; use the <code>load_paths_all</code> function:</p>
+
+<div class="highlight"><pre><code class="matlab">  <span class="o">&gt;&gt;</span> <span class="n">load_paths_all</span><span class="p">;</span>
+</code></pre></div>
+
+<h3 id="files">Files</h3>
+<p>All Matlab files (.m files) have a description and an example in the header. To read this
+header, type <code>help &lt;filename.m&gt;</code> in Matlab.  Directory structure is as follows: </p>
+
+<div class="highlight"><pre><code class="text">.
+├── data                 # some signal examples in .mat files
+├── methods              # IF estimation methods
+├── synth_PLED_signal    # generate the synthetic (PLED-like) signals
+│   └── generate_data
+└── utils                # miscellaneous collection of utilities 
+</code></pre></div>
+
+<h3 id="example-1">Example 1</h3>
+<p>An example, from <a href="#references">[1]</a>, compares the proposed IF estimation method with other methods:</p>
+
+<div class="highlight"><pre><code class="matlab">  <span class="o">&gt;&gt;</span> <span class="n">demo_compare_3methods</span><span class="p">;</span>
+</code></pre></div>
+
+<h3 id="example-2">Example 2</h3>
+<p>To generate the PLED (periodic lateralized epilepiform discharges) example figure from <a href="#references">[1]</a>:</p>
+
+<div class="highlight"><pre><code class="matlab">  <span class="o">&gt;&gt;</span> <span class="n">generate_Fig_IFest_example</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">);</span>
+  <span class="o">&gt;&gt;</span> <span class="n">generate_Fig_IFest_example</span><span class="p">(</span><span class="s">&#39;b&#39;</span><span class="p">);</span>
+  <span class="o">&gt;&gt;</span> <span class="n">generate_Fig_IFest_example</span><span class="p">(</span><span class="s">&#39;c&#39;</span><span class="p">);</span>
+  <span class="o">&gt;&gt;</span> <span class="n">generate_Fig_IFest_example</span><span class="p">(</span><span class="s">&#39;d&#39;</span><span class="p">);</span>
+  <span class="o">&gt;&gt;</span> <span class="n">generate_Fig_IFest_example</span><span class="p">(</span><span class="s">&#39;e&#39;</span><span class="p">);</span>
+</code></pre></div>
+
+<h2 id="synthetic-signals">Synthetic Signals</h2>
+
+<p>Call function <code>gen_synth_signals_plus_noise</code> (in the <code>synth_PLED_signals</code> directory) to
+generate the synthetic signals:</p>
+
+<div class="highlight"><pre><code class="matlab">   <span class="n">snr</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">Fs</span><span class="p">=</span><span class="mi">50</span><span class="p">;</span> 
+   <span class="n">N_iters</span><span class="p">=</span><span class="mi">10</span><span class="p">;</span> <span class="n">WAVEFORM_MONOPHASIC</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span>
+   <span class="p">[</span><span class="n">sigs</span><span class="p">,</span><span class="n">IFs</span><span class="p">]=</span><span class="n">gen_synth_signals_plus_noise</span><span class="p">(</span><span class="n">snr</span><span class="p">,</span><span class="n">N_iters</span><span class="p">,</span><span class="n">Fs</span><span class="p">,</span><span class="s">&#39;CGN&#39;</span><span class="p">,</span><span class="n">WAVEFORM_MONOPHASIC</span><span class="p">);</span>
+
+   <span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="n">clf</span><span class="p">;</span> <span class="n">Fs</span><span class="p">=</span><span class="mi">50</span><span class="p">;</span> 
+   <span class="n">n</span><span class="p">=(</span><span class="mi">1</span><span class="p">:</span><span class="nb">size</span><span class="p">(</span><span class="n">sigs</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span><span class="o">./</span><span class="n">Fs</span><span class="p">;</span> 
+   <span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span> <span class="n">plot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">sigs</span><span class="p">(</span><span class="mi">1</span><span class="p">,:));</span> <span class="n">xlim</span><span class="p">([</span><span class="mi">5</span> <span class="mi">35</span><span class="p">]);</span>
+   <span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;time (seconds)&#39;</span><span class="p">);</span>  <span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;amplitude&#39;</span><span class="p">);</span>
+   <span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span> <span class="n">plot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">IFs</span><span class="p">(</span><span class="mi">1</span><span class="p">,:));</span> <span class="n">xlim</span><span class="p">([</span><span class="mi">5</span> <span class="mi">35</span><span class="p">]);</span>
+   <span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;time (seconds)&#39;</span><span class="p">);</span>  <span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;frequency (Hz)&#39;</span><span class="p">);</span>
+</code></pre></div>
+
+<p>These synthetic signals use the Duffing waveform from <a href="#references">[4]</a>, stored in data
+file <code>data/duffing_waveforms.mat</code> directory.</p>
+
+<h3 id="example-3">Example 3</h3>
+<p>Estimate the IF on synthetic signal using the proposed method (log-lag time–frequency filtering):</p>
+
+<div class="highlight"><pre><code class="matlab">   <span class="n">b</span><span class="p">=</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;synth_signal_example_0dB.mat&#39;</span><span class="p">);</span>
+   <span class="p">[</span><span class="n">iflaw</span><span class="p">,</span><span class="n">t_scale</span><span class="p">,</span><span class="n">f_scale</span><span class="p">]=</span><span class="n">estIF_epoch_overlapadd</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">b</span><span class="p">.</span><span class="n">Fs</span><span class="p">);</span>
+   
+   <span class="c">% plot:</span>
+   <span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="n">clf</span><span class="p">;</span>  <span class="n">hold</span> <span class="n">all</span><span class="p">;</span>
+   <span class="n">n</span><span class="p">=</span><span class="mi">1</span><span class="p">:</span><span class="nb">length</span><span class="p">(</span><span class="n">iflaw</span><span class="p">);</span>
+   <span class="n">plot</span><span class="p">(</span><span class="n">n</span><span class="o">.*</span><span class="n">t_scale</span><span class="p">,</span><span class="n">iflaw</span><span class="o">.*</span><span class="n">f_scale</span><span class="p">);</span>
+   <span class="n">plot</span><span class="p">(</span> <span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="nb">length</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">true_IF</span><span class="p">))</span><span class="o">./</span><span class="n">b</span><span class="p">.</span><span class="n">Fs</span><span class="p">,</span><span class="n">b</span><span class="p">.</span><span class="n">true_IF</span><span class="p">);</span>
+   <span class="n">legend</span><span class="p">(</span><span class="s">&#39;proposed&#39;</span><span class="p">,</span><span class="s">&#39;true IF&#39;</span><span class="p">);</span>
+   <span class="n">xlim</span><span class="p">([</span><span class="mi">10</span> <span class="mi">30</span><span class="p">]);</span> <span class="n">ylim</span><span class="p">([</span><span class="mi">0</span> <span class="mi">2</span><span class="p">]);</span>
+   <span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;time (seconds)&#39;</span><span class="p">);</span> 
+   <span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;frequency (Hz)&#39;</span><span class="p">);</span>
+</code></pre></div>
+
+<h2 id="requirements">Requirements</h2>
+
+<ul>
+  <li>Either Matlab (R2012 or newer, http://www.mathworks.co.uk/products/matlab/) or Octave (v3.6 or newer, http://www.gnu.org/software/octave/index.html, with the ‘octave-signal’ add-on package).</li>
+  <li>The fast time–frequency distribution algorithms are required <a href="#references">[3]</a>, available for free download <a href="/code/fast_TFDs/">here</a>.</li>
+  <li>At least 2 GB of RAM available, preferably &gt;4 GB.</li>
+</ul>
+
+<h2 id="test-computer-setup">Test Computer Setup</h2>
+<ul>
+  <li>hardware:  Intel(R) Xeon(R) CPU E5-1603 0 @ 2.80GHz; 8GB memory.</li>
+  <li>operating system: Ubuntu GNU/Linux x86_64 distribution (Raring, 13.04), with Linux kernel 3.5.0-28-generic </li>
+  <li>software: Octave 3.6.4 (using Gnuplot 4.6 patchlevel 1), with ‘octave-signal’ toolbox and Matlab (R2009b, R2012a, and R2013a)</li>
+</ul>
+
+<hr />
+
+<h2 id="licence">Licence</h2>
+
+<div class="highlight"><pre><code class="text">Copyright (c) 2011 and 2012, John O&#39; Toole, University of Deusto
+Copyright (c) 2013, John O&#39; Toole, University College Cork
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+  Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+  Redistributions in binary form must reproduce the above copyright notice, this
+  list of conditions and the following disclaimer in the documentation and/or
+  other materials provided with the distribution.
+
+  Neither the name of the University of Deusto nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+</code></pre></div>
+
+<h2 id="references">References</h2>
+
+<ol>
+  <li>
+    <p>in preparation  </p>
+  </li>
+  <li>
+    <p>B. Boashash, A. Ghazem, and J.M. O’ Toole. “Time–frequency processing of nonstationary signals: advanced TFD design to aid diagnosis with highlights from medical applications.” IEEE Signal Processing Magazine, vol. 30, no. 6, pp. 108–119, November 2013.</p>
+  </li>
+  <li>
+    <p>J.M. O’ Toole and B. Boashash, “Fast and memory-efficient algorithms for computing quadratic time–frequency distributions”, Applied and Computational Harmonic Analysis, vol. 35, no. 2, pp. 350–358, 2013.</p>
+  </li>
+  <li>
+    <p>N.J. Stevenson, M. Mesbah, G.B. Boylan, P.B. Colditz, and B. Boashash, “A nonlinear model of newborn EEG with non-stationary inputs,” Annals of Biomedical Engineering, vol. 38, no. 9, pp. 3010–3021, Sep. 2010.</p>
+  </li>
+</ol>
+
+    </div><!-- /.article-wrap -->
+  </article>
+</div><!-- /#index -->
+
+<div class="footer-wrap">
+  <footer>
+    <span>&copy; 2013 J.M. O' Toole. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">Minimal Mistakes</a> theme.</span>
+
+  </footer>
+</div><!-- /.footer-wrap -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="/assets/js/scripts.min.js"></script>
+          
+
+</body>
+</html>

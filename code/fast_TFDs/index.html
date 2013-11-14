@@ -1,0 +1,377 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>Algorithms for (Quadratic) Time--Frequency Distributions &#8211; signal-plus-noise /sn/</title>
+<meta name="description" content="">
+<meta name="keywords" content="code, matlab, time-frequency distributions, algorithms">
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Algorithms for (Quadratic) Time--Frequency Distributions">
+<meta property="og:description" content="code+publications for JM O' Toole">
+<meta property="og:url" content="/code/fast_TFDs/index.html">
+<meta property="og:site_name" content="signal-plus-noise /sn/">
+
+
+
+
+
+<link rel="canonical" href="/code/fast_TFDs/">
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="signal-plus-noise /sn/ Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700|PT+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.min.css">
+
+<!--[if (lt IE 9) & (!IEMobile)]>
+<link rel="stylesheet" href="/assets/css/ie.min.css">
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- Load Modernizr -->
+<script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+</head>
+
+<body class="page" itemscope itemtype="http://schema.org/WebPage">
+
+<!--[if lt IE 9]><div class="browser-upgrade alert alert-info">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div><![endif]-->
+
+<div class="navigation-wrapper">
+	<div class="site-name">
+		<a href="">signal-plus-noise /sn/</a>
+	</div><!-- /.site-name -->
+	<div class="top-navigation">
+		<nav role="navigation" itemscope itemtype="http://schema.org/SiteNavigationElement">
+		    <ul>
+		        
+				<li><a href="/about" >About</a></li>
+		        
+				<li><a href="/pubs" >Publications</a></li>
+		        
+				<li><a href="/code" >Code</a></li>
+		        
+		        <li><i class="icon-feed"></i> <a href="/feed.xml" title="Atom/RSS feed">Feed</a>
+		    </ul>
+		</nav>
+	</div><!-- /.top-navigation -->
+</div><!-- /.navigation-wrapper -->
+
+
+
+<div id="main" role="main"  itemprop="mainContentOfPage">
+  <div class="article-author-top">
+    <img src="/images/bio-photo.jpg" class="bio-photo" alt="J.M. O' Toole bio photo"></a>
+<h3>J.M. O' Toole</h3>
+<p>Researcher @ Neonatal Brain Research Group, UCC, Ireland. Topic: biomedical signal processing</p>
+
+
+
+
+
+<a href="http://github.com/https://github.com/otoolej" class="author-social" target="_blank"><i class="icon-github"></i> Github</a>
+
+
+  </div>
+  <article itemscope itemtype="http://schema.org/CreativeWork">
+    <h1 itemprop="name">Algorithms for (Quadratic) Time--Frequency Distributions</h1>
+    <div class="article-wrap" itemprop="text">
+      <section id="table-of-contents" class="toc">
+  <header>
+    <h3>Contents</h3>
+  </header>
+<div id="drawer">
+<ul id="markdown-toc">
+  <li><a href="#download">Download</a></li>
+  <li><a href="#overview">Overview</a></li>
+  <li><a href="#quick-start">Quick Start</a></li>
+  <li><a href="#examples">Examples</a>    <ul>
+      <li><a href="#example-1-choi-williams">Example 1: Choi-Williams</a></li>
+      <li><a href="#example-2-separable-kernel-tfd">Example 2: Separable-kernel TFD</a></li>
+      <li><a href="#example-3-doppler-independent-kernel-tfd">Example 3: Doppler-independent kernel TFD</a></li>
+      <li><a href="#example-4-separable-kernel-tfd">Example 4: Separable kernel TFD</a></li>
+      <li><a href="#test-computer-setup">Test Computer Setup</a></li>
+      <li><a href="#copyright">Copyright</a></li>
+    </ul>
+  </li>
+  <li><a href="#references">References</a></li>
+</ul>
+
+  </div>
+</section>
+<!-- /#table-of-contents -->
+
+<h2 id="download">Download</h2>
+<p><a href="https://github.com/otoolej/fast_TFDs/zipball/master" class="btn">download fast_TFDs</a>   (or fork on <a href="https://github.com/otoolej/fast_TFDs">github</a>)</p>
+
+<h2 id="overview">Overview</h2>
+<p>This collection of M-files generate time-frequency distributions (TFDs) with as few computations and as little memory as possible.  The algorithms are described in <a href="#ref_acha">[1]</a>; the discrete TFD definition they compute is in <a href="#ref_dtfd">[2]</a>.</p>
+
+<p>There are two sets of algorithms.  The first set (Set1) computes the exact TFD and minimises on oversampling.  The second set (Set2) computes a decimated TFD, and therefore is not exact but may be useful for some applications.</p>
+
+<p>Each set computes four different types of kernels:</p>
+
+<ul>
+  <li>nonseparable kernel</li>
+  <li>separable kernel</li>
+  <li>Doppler-independent kernel</li>
+  <li>lag-independent kernel </li>
+</ul>
+
+<p>(see <a href="#ref_acha">[1]</a> for more details).
+Code is organised in folders as follows:</p>
+
+<div class="highlight"><pre><code class="text">fast_TFDs/
+├── full_DTFD/     # Set1 algorithms: compute exact TFDs
+│   └── .m files
+├── dec_DTFD/      # Set2 algorithms: compute decimated TFDs
+│   └── .m files
+├── utils/         # extra functions 
+│   └── .m files 
+└── common/        # common functions used by Set1 and Set2 algorithms
+    └── .m files 
+</code></pre></div>
+
+<p>These programs should run in either Matlab (v7.9.0) or Octave (v3.2.4)</p>
+
+<hr />
+
+<h2 id="quick-start">Quick Start</h2>
+<p>To start, in Matlab (or Octave) load the paths:</p>
+
+<div class="highlight"><pre><code class="matlab">   <span class="o">&gt;&gt;</span> <span class="n">load_paths_DTFDs</span><span class="p">;</span>
+   
+</code></pre></div>
+
+<p>Next, generate a test signal:</p>
+
+<div class="highlight"><pre><code class="matlab">   <span class="o">&gt;&gt;</span> <span class="n">N</span><span class="p">=</span><span class="mi">128</span><span class="p">;</span> <span class="n">x</span><span class="p">=</span><span class="n">gen_LFM</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.3</span><span class="p">);</span>
+   
+</code></pre></div>
+
+<p>Second, generate a TFD with a separable kernel:</p>
+
+<div class="highlight"><pre><code class="matlab">   <span class="o">&gt;&gt;</span> <span class="n">tf</span><span class="p">=</span><span class="n">dtfd_sep1</span><span class="p">(</span><span class="n">x</span><span class="p">,{</span><span class="mi">51</span><span class="p">,</span><span class="s">&#39;hamm&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">},{</span><span class="mi">171</span><span class="p">,</span><span class="s">&#39;hann&#39;</span><span class="p">},</span><span class="mi">256</span><span class="p">,</span><span class="mi">128</span><span class="p">);</span> 
+   
+</code></pre></div>
+
+<p>Third, plot the TFD:</p>
+
+<div class="highlight"><pre><code class="matlab">   <span class="o">&gt;&gt;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
+   
+</code></pre></div>
+
+<figure>
+        <img src="/images/lfm_sep_eg1_rs.png" alt="LFM example" />					      
+	<figcaption>Separable-kernel distribution generated with a linear frequency modulated signal (in Matlab environment).</figcaption>
+</figure>
+
+<h2 id="examples">Examples</h2>
+<p>In all the examples, start by adding the paths by running the command</p>
+
+<div class="highlight"><pre><code class="matlab">   <span class="o">&gt;&gt;</span> <span class="n">load_paths_DTFDs</span><span class="p">;</span>
+   
+</code></pre></div>
+
+<h3 id="example-1-choi-williams">Example 1: Choi-Williams</h3>
+
+<p>Using the exact-TFD algorithm (from Set1 <a href="#ref_acha">[1]</a>):</p>
+
+<div class="highlight"><pre><code class="matlab">      <span class="c">% 1. generate test signal:</span>
+      <span class="n">N</span><span class="p">=</span><span class="mi">256</span><span class="p">;</span> 
+      <span class="n">x</span><span class="p">=</span><span class="n">gen_LFM</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.15</span><span class="p">)</span><span class="o">+</span><span class="n">gen_LFM</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.35</span><span class="p">);</span>
+
+      <span class="c">% 2. generate TFD</span>
+      <span class="n">c</span><span class="p">=</span><span class="n">dtfd_nonsep</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="s">&#39;cw&#39;</span><span class="p">,{</span><span class="mi">30</span><span class="p">});</span> 
+
+      <span class="c">% 3. plot</span>
+      <span class="n">clf</span><span class="p">;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
+   
+</code></pre></div>
+
+<div class="centre picture">
+    <img src="/images/lfms_cw_eg1_rs.png" alt="Two LFMs example" />
+</div>
+
+<h3 id="example-2-separable-kernel-tfd">Example 2: Separable-kernel TFD</h3>
+
+<p>Using exact-TFD algorithm from Set1 <a href="#ref_acha">[1]</a></p>
+
+<div class="highlight"><pre><code class="matlab">      <span class="c">% 1. generate test signal:</span>
+      <span class="n">N</span><span class="p">=</span><span class="mi">10000</span><span class="p">;</span> 
+      <span class="n">x</span><span class="p">=</span><span class="n">gen_LFM</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.3</span><span class="p">)</span><span class="o">+</span><span class="n">gen_LFM</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.1</span><span class="p">);</span>
+
+      <span class="c">% 2. generate TFD</span>
+      <span class="n">Ntime</span><span class="p">=</span><span class="mi">256</span><span class="p">;</span> <span class="n">Nfreq</span><span class="p">=</span><span class="mi">256</span><span class="p">;</span>
+      <span class="n">c</span><span class="p">=</span><span class="n">dtfd_sep1</span><span class="p">(</span><span class="n">x</span><span class="p">,{</span><span class="mi">51</span><span class="p">,</span><span class="s">&#39;hamm&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">},{</span><span class="mi">271</span><span class="p">,</span><span class="s">&#39;hann&#39;</span><span class="p">},</span><span class="n">Ntime</span><span class="p">,</span><span class="n">Nfreq</span><span class="p">);</span> 
+
+      <span class="c">% 3. plot</span>
+      <span class="n">clf</span><span class="p">;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
+   
+</code></pre></div>
+
+<div class="centre picture">
+    <img src="/images/cross_LFMs_sep_eg1_rs.png" alt="cross-LFMs example" />
+</div>
+
+<h3 id="example-3-doppler-independent-kernel-tfd">Example 3: Doppler-independent kernel TFD</h3>
+
+<p>Using decimated TFD algorithm (from Set2 <a href="#ref_acha">[1]</a>) generating selective time portions of the signal:</p>
+
+<div class="highlight"><pre><code class="matlab">      <span class="c">% 1. generate test signal:</span>
+      <span class="n">N</span><span class="p">=</span><span class="mi">171</span><span class="p">;</span> 
+      <span class="n">x</span><span class="p">=</span><span class="n">gen_LFM</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.4</span><span class="p">);</span>
+
+      <span class="c">% 2. generate TFD:</span>
+      <span class="n">Nfreq</span><span class="p">=</span><span class="mi">258</span><span class="p">;</span> 
+      <span class="n">time_dec</span><span class="p">=[</span><span class="mi">20</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">160</span><span class="p">,</span><span class="mi">191</span><span class="p">:</span><span class="mi">250</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">256</span><span class="p">];</span> <span class="n">freq_dec</span><span class="p">=</span><span class="mi">3</span><span class="p">;</span>
+      <span class="n">tf</span><span class="p">=</span><span class="n">dec_dtfd_DI</span><span class="p">(</span><span class="n">x</span><span class="p">,{</span><span class="mi">51</span><span class="p">,</span><span class="s">&#39;hamm&#39;</span><span class="p">},</span><span class="n">Nfreq</span><span class="p">,</span><span class="n">time_dec</span><span class="p">,</span><span class="n">freq_dec</span><span class="p">);</span> 
+
+      <span class="c">% 3. plot</span>
+      <span class="n">clf</span><span class="p">;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">tf</span><span class="p">);</span>
+   
+</code></pre></div>
+
+<div class="centre picture">
+    <img src="/images/LFM_DI_cut_sep_eg1_rs.png" alt="Doppler-independent example" />
+</div>
+
+<h3 id="example-4-separable-kernel-tfd">Example 4: Separable kernel TFD</h3>
+
+<p>using decimated TFD algorithm from Set2 <a href="#ref_acha">[1]</a>.</p>
+
+<div class="highlight"><pre><code class="matlab">      <span class="c">% 1. generate test signal:</span>
+      <span class="n">N</span><span class="p">=</span><span class="mi">10000</span><span class="p">;</span> 
+      <span class="n">x</span><span class="p">=</span><span class="n">gen_LFM</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.3</span><span class="p">)</span><span class="o">+</span><span class="n">gen_LFM</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.1</span><span class="p">);</span>
+
+      <span class="c">% 2. generate TFD:</span>
+      <span class="n">Ntime</span><span class="p">=</span><span class="mi">512</span><span class="p">;</span> <span class="n">Nfreq</span><span class="p">=</span><span class="mi">256</span><span class="p">;</span>
+      <span class="n">time_dec</span><span class="p">=</span><span class="mi">4</span><span class="p">;</span> <span class="n">freq_dec</span><span class="p">=</span><span class="mi">2</span><span class="p">;</span>
+      <span class="n">c</span><span class="p">=</span><span class="n">dec_dtfd_sep</span><span class="p">(</span><span class="n">x</span><span class="p">,{</span><span class="mi">51</span><span class="p">,</span><span class="s">&#39;hamm&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">},{</span><span class="mi">271</span><span class="p">,</span><span class="s">&#39;hann&#39;</span><span class="p">},</span> <span class="c">...</span>
+                     <span class="n">Ntime</span><span class="p">,</span><span class="n">Nfreq</span><span class="p">,</span><span class="n">time_dec</span><span class="p">,</span><span class="n">freq_dec</span><span class="p">);</span> 
+
+      <span class="c">% 3. plot</span>
+      <span class="n">clf</span><span class="p">;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
+   
+</code></pre></div>
+
+<div class="centre picture">
+    <img src="/images/dec_cross_LFM_eg1_rs.png" alt="Doppler-independent example" />
+</div>
+
+<h3 id="test-computer-setup">Test Computer Setup</h3>
+<ul>
+  <li>hardware:  Intel Core Duo CPU, 2.13GHz; 2GB memory.</li>
+  <li>operating system: Ubuntu GNU/Linux i686 distribution (Natty,
+11.04), with Linux kernel 2.6.38-8-generic</li>
+  <li>software: Octave 3.2.4 (using Gnuplot 4.4 patchlevel 2) and
+Matlab (R2009b, R2012a, and R2013a)</li>
+</ul>
+
+<h3 id="copyright">Copyright</h3>
+
+<div class="highlight"><pre><code class="text">Copyright (c) 2008-2010 John M. O&#39; Toole, The University of Queensland
+Copyright (c) 2011-2012 John M. O&#39; Toole, University of Deusto
+Copyright (c) 2013 John M. O&#39; Toole, University College Cork
+All rights reserved.
+Email:  j.otoole@ieee.org
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following
+  conditions are met:
+  * Redistributions of source code must retain the above
+    copyright notice, this list of conditions and the following
+    disclaimer.
+
+  * Redistributions in binary form must reproduce the above
+    copyright notice, this list of conditions and the following
+    disclaimer in the documentation and/or other materials
+    provided with the distribution.
+  * Neither the name of the The University of Queensland nor the 
+    names of its contributors may be used to endorse or promote 
+    products derived from this software without specific prior 
+    written permission.
+  
+  THIS SOFTWARE IS PROVIDED BY JOHN M. O&#39; TOOLE &#39;&#39;AS IS&#39;&#39; AND ANY
+  EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+  PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL JOHN M. O&#39; TOOLE BE
+  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+  OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+  BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
+  USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+  DAMAGE.
+</code></pre></div>
+
+<p>Please cite appropriates reference in <a href="#references">[1]</a> if you use this software to generate results
+or prepare data for publication.</p>
+
+<hr />
+
+<h1 id="references">References</h1>
+
+<ol>
+  <li>
+    <p>J.M. O’ Toole and B. Boashash, “Fast and memory-efficient algorithms for computing quadratic time–frequency distributions”, Applied and Computational Harmonic Analysis, Feb. 2013, <a href="http://dx.doi.org/10.1016/j.acha.2013.01.003">doi:10.1016/j.acha.2013.01.003</a></p>
+  </li>
+  <li>
+    <p>J.M. Oʼ Toole, M. Mesbah, and B. Boashash, “Improved discrete definition of quadratic time–frequency distributions,” IEEE Trans. on Signal Processing, vol. 58, Feb. 2010, pp. 906-911.</p>
+  </li>
+  <li>
+    <p>J.M. O’ Toole, M. Mesbah, and B. Boashash, “A New Discrete Analytic Signal for Reducing Aliasing in the Discrete Wigner-Ville Distribution”, IEEE Trans. on Signal Processing, vol. 56, no. 11, pp. 5427-5434, Nov. 2008.</p>
+  </li>
+  <li>
+    <p>J.M. Oʼ Toole, M. Mesbah, and B. Boashash, “Algorithms for discrete quadratic time–frequency distributions,” WSEAS Trans. Signal Processing, vol. 4, May. 2008, pp. 320-329.</p>
+  </li>
+</ol>
+
+
+    </div><!-- /.article-wrap -->
+  </article>
+</div><!-- /#index -->
+
+<div class="footer-wrap">
+  <footer>
+    <span>&copy; 2013 J.M. O' Toole. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">Minimal Mistakes</a> theme.</span>
+
+  </footer>
+</div><!-- /.footer-wrap -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="/assets/js/scripts.min.js"></script>
+          
+
+</body>
+</html>
