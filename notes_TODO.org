@@ -1,0 +1,14 @@
+#+TITLE: lots more todo....
+#
+# started: 14-Nov-2013
+
+* site
+  + [ ] link back to homepage is absenti
+
+* code
+  + [ ] put link/statement on front page saying that some computer code is in with the
+    publications section
+  + [ ] add pictures for the IF_est code page
+
+* publications
+  + [ ] fix Med. Eng. & Physics reference (missing '&')
