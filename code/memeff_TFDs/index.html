@@ -1,0 +1,502 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>Fast and Memory Efficient Algorithms for Time–Frequency Distributions &#8211; signal-plus-noise /sn/</title>
+<meta name="description" content="">
+<meta name="keywords" content="code, matlab, time-frequency distributions, algorithms">
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fast and Memory Efficient Algorithms for Time–Frequency Distributions">
+<meta property="og:description" content="code+publications for JM O' Toole">
+<meta property="og:url" content="http://otoolej.github.io//code/memeff_TFDs/index.html">
+<meta property="og:site_name" content="signal-plus-noise /sn/">
+
+
+
+
+
+<link rel="canonical" href="http://otoolej.github.io//code/memeff_TFDs/">
+<link href="http://otoolej.github.io//feed.xml" type="application/atom+xml" rel="alternate" title="signal-plus-noise /sn/ Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700|PT+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://otoolej.github.io//assets/css/main.min.css">
+
+<!--[if (lt IE 9) & (!IEMobile)]>
+<link rel="stylesheet" href="http://otoolej.github.io//assets/css/ie.min.css">
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- Load Modernizr -->
+<script src="http://otoolej.github.io//assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="http://otoolej.github.io//favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="http://otoolej.github.io//favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="http://otoolej.github.io//images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://otoolej.github.io//images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://otoolej.github.io//images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://otoolej.github.io//images/apple-touch-icon-144x144-precomposed.png">
+
+</head>
+
+<body class="page" itemscope itemtype="http://schema.org/WebPage">
+
+<!--[if lt IE 9]><div class="browser-upgrade alert alert-info">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div><![endif]-->
+
+<div class="navigation-wrapper">
+	<div class="site-name">
+		<a href="http://otoolej.github.io/">signal-plus-noise /sn/</a>
+	</div><!-- /.site-name -->
+	<div class="top-navigation">
+		<nav role="navigation" itemscope itemtype="http://schema.org/SiteNavigationElement">
+		    <ul>
+		        
+				<li><a href="http://otoolej.github.io//about" >About</a></li>
+		        
+				<li><a href="http://otoolej.github.io//pubs" >Publications</a></li>
+		        
+				<li><a href="http://otoolej.github.io//code" >Code</a></li>
+		        
+		        <li><i class="icon-feed"></i> <a href="http://otoolej.github.io//feed.xml" title="Atom/RSS feed">Feed</a>
+		    </ul>
+		</nav>
+	</div><!-- /.top-navigation -->
+</div><!-- /.navigation-wrapper -->
+
+
+
+<div id="main" role="main"  itemprop="mainContentOfPage">
+  <div class="article-author-top">
+    <img src="http://otoolej.github.io//images/bio-photo.jpg" class="bio-photo" alt="J.M. O' Toole bio photo"></a>
+<h3>J.M. O' Toole</h3>
+<p>Researcher @ Neonatal Brain Research Group, UCC, Ireland. Topic: biomedical signal processing</p>
+
+
+
+
+
+<a href="http://github.com/https://github.com/otoolej" class="author-social" target="_blank"><i class="icon-github"></i> Github</a>
+
+
+  </div>
+  <article itemscope itemtype="http://schema.org/CreativeWork">
+    <h1 itemprop="name">Fast and Memory Efficient Algorithms for Time–Frequency Distributions</h1>
+    <div class="article-wrap" itemprop="text">
+      <section id="table-of-contents" class="toc">
+  <header>
+    <h3>Contents</h3>
+  </header>
+<div id="drawer">
+<ul id="markdown-toc">
+  <li><a href="#download">download</a></li>
+  <li><a href="#overview">overview</a></li>
+  <li><a href="#quick-start">quick start</a></li>
+  <li><a href="#description">description</a></li>
+  <li><a href="#files">files</a></li>
+  <li><a href="#computational-load">computational load</a></li>
+  <li><a href="#requirements">requirements</a></li>
+  <li><a href="#test-computer-setup">test computer setup</a></li>
+  <li><a href="#licence">licence</a></li>
+  <li><a href="#references">references</a></li>
+  <li><a href="#contact">contact</a></li>
+</ul>
+
+  </div>
+</section>
+<!-- /#table-of-contents -->
+
+<h1 id="download">download</h1>
+<p><a href="https://github.com/otoolej/memeff_TFDs/zipball/master" class="btn">download fast_TFDs</a>   (or fork on <a href="https://github.com/otoolej/memeff_TFDs">github</a>)</p>
+
+<h1 id="overview">overview</h1>
+<p>A collection of M-files to compute time–frequency distributions from the quadratic class <a href="#references">[1]</a>. Memory and computational load is limited by controlling the level of over-sampling for the TFD. Oversampling in the TFD is proportional to signal length and bandwidth of the Doppler–lag kernel. Algorithms are optimised to four kernel types: nonseparable, separable, lag-independent, and Doppler-independent kernels.  </p>
+
+<p>Also included are algorithms to compute decimated, or sub-sampled, TFDs. Again, these
+algorithms are specific to the four kernel types but compute approximate TFDs by a process
+of decimatation.  </p>
+
+<p>This package was meanst to replace the <a href="/code/fast_TFDs/">fast TFDs</a> package as is better
+programmed to save memory and is simplier to use. The code at
+<a href="/code/fast_TFDs/">fast TFDs</a> however, is specific to the reference <a href="#references">[2]</a>
+whereas this code is more general and (should be) easier to use.</p>
+
+<p>Requires Matlab or Octave (programming environments).  </p>
+
+<h1 id="quick-start">quick start</h1>
+<p>First, add paths using the <code>load_curdir</code> function:</p>
+
+<div class="highlight"><pre><code class="matlab">  <span class="o">&gt;&gt;</span> <span class="n">load_curdir</span><span class="p">;</span>
+</code></pre></div>
+
+<hr />
+
+<h1 id="description">description</h1>
+
+<p>There are two sets of TFD algorithms: one set computes oversampled TFDs and the other
+set computes decimated (sub-sampled or undersampled) TFDs. The first set, for computing
+oversampled TFDs, has four algorithms for specific kernel types, namely the
+- non-separable kernel,
+- separable kernel,
+- Doppler-independent (DI) kernel,
+- and lag-independent (LI) kernel.</p>
+
+<p>The function to generate these oversampled TFDs is <code>full_tfd.m</code>. The following
+examples, using a test signal, illustrates usage:</p>
+
+<div class="highlight"><pre><code class="matlab">  <span class="c">% generate test signal:</span>
+  <span class="n">N</span><span class="p">=</span><span class="mi">512</span><span class="p">;</span>
+  <span class="n">x</span><span class="p">=</span><span class="n">gen_LFM</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.3</span><span class="p">)</span> <span class="o">+</span> <span class="n">gen_LFM</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.04</span><span class="p">);</span>
+
+  <span class="c">% nonseparable kernel (Choi-Williams kernel):</span>
+  <span class="n">tf</span><span class="p">=</span><span class="n">full_tfd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="s">&#39;nonsep&#39;</span><span class="p">,{</span><span class="s">&#39;cw&#39;</span><span class="p">,</span><span class="mi">10</span><span class="p">});</span>
+  <span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="n">clf</span><span class="p">;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
+  
+  <span class="c">% separable kernel:</span>
+  <span class="n">tf</span><span class="p">=</span><span class="n">full_tfd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="s">&#39;sep&#39;</span><span class="p">,{</span> <span class="p">{</span><span class="mi">51</span><span class="p">,</span><span class="s">&#39;hann&#39;</span><span class="p">},{</span><span class="mi">101</span><span class="p">,</span><span class="s">&#39;hann&#39;</span><span class="p">}</span> <span class="p">},</span><span class="mi">256</span><span class="p">,</span><span class="mi">256</span><span class="p">);</span>
+  <span class="n">figure</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="n">clf</span><span class="p">;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
+  
+  <span class="c">% Doppler-independent kernel:</span>
+  <span class="n">tf</span><span class="p">=</span><span class="n">full_tfd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="s">&#39;DI&#39;</span><span class="p">,{</span><span class="mi">101</span><span class="p">,</span><span class="s">&#39;hann&#39;</span><span class="p">},</span><span class="mi">256</span><span class="p">,[]);</span>
+  <span class="n">figure</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="n">clf</span><span class="p">;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
+  
+  <span class="c">% lag-independent kernel:</span>
+  <span class="n">tf</span><span class="p">=</span><span class="n">full_tfd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="s">&#39;LI&#39;</span><span class="p">,{</span><span class="mi">51</span><span class="p">,</span><span class="s">&#39;hann&#39;</span><span class="p">},[],</span><span class="mi">256</span><span class="p">);</span>
+  <span class="n">figure</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span> <span class="n">clf</span><span class="p">;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
+  
+</code></pre></div>
+
+<figure>
+    <img src="/images/full_TFDs_examples.png" alt="oversampled TFD examples" />	   
+	<figcaption>Computing oversampled TFDs for the four kernel types (in Matlab environment).</figcaption>
+</figure>
+<p>Type <code>help full_tfd</code> for more details.</p>
+
+<p>Likewise, the algorithms for decimated TFDs are specific to the four kernel types. The
+function <code>dec_tfd</code> computes the decimated TFDs, as the following examples show:</p>
+
+<div class="highlight"><pre><code class="matlab">  <span class="n">N</span><span class="p">=</span><span class="mi">1024</span><span class="p">;</span> <span class="n">Ntime</span><span class="p">=</span><span class="mi">64</span><span class="p">;</span> <span class="n">Nfreq</span><span class="p">=</span><span class="mi">128</span><span class="p">;</span>                                              
+  <span class="n">a</span><span class="p">=</span><span class="mi">2</span><span class="p">;</span> <span class="n">b</span><span class="p">=</span><span class="mi">2</span><span class="p">;</span>                                                       
+  <span class="n">ni</span><span class="p">=[</span><span class="mi">100</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">900</span><span class="p">];</span> <span class="n">ki</span><span class="p">=[</span><span class="mi">150</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">850</span><span class="p">];</span>                                 
+                                                                  
+  <span class="n">x</span><span class="p">=</span><span class="n">gen_LFM</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.3</span><span class="p">)</span><span class="o">+</span><span class="n">gen_LFM</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.1</span><span class="p">);</span>                        
+                                                                  
+  <span class="c">% non-separable kernel:                                         </span>
+  <span class="n">tf</span><span class="p">=</span><span class="n">dec_tfd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="s">&#39;nonsep&#39;</span><span class="p">,{</span><span class="s">&#39;cw&#39;</span><span class="p">,</span><span class="mi">100</span><span class="p">},</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">a</span><span class="o">*</span><span class="mi">4</span><span class="p">,</span><span class="n">b</span><span class="o">*</span><span class="mi">4</span><span class="p">);</span>                       
+  <span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="n">clf</span><span class="p">;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>                                      
+                                                                  
+  <span class="c">% separable kernel:                                             </span>
+  <span class="n">tf</span><span class="p">=</span><span class="n">dec_tfd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="s">&#39;sep&#39;</span><span class="p">,{</span> <span class="p">{</span><span class="mi">51</span><span class="p">,</span><span class="s">&#39;hann&#39;</span><span class="p">},{</span><span class="mi">101</span><span class="p">,</span><span class="s">&#39;hann&#39;</span><span class="p">}</span> <span class="p">},</span><span class="n">Ntime</span><span class="p">,</span><span class="n">Nfreq</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>    
+  <span class="n">figure</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="n">clf</span><span class="p">;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>                                      
+                                                                  
+  <span class="c">% Doppler-independent kernel:                                   </span>
+  <span class="n">tf</span><span class="p">=</span><span class="n">dec_tfd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="s">&#39;DI&#39;</span><span class="p">,{</span><span class="mi">101</span><span class="p">,</span><span class="s">&#39;hann&#39;</span><span class="p">},</span><span class="n">N</span><span class="p">,</span><span class="n">Nfreq</span><span class="p">,</span><span class="n">ni</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>                      
+  <span class="n">figure</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="n">clf</span><span class="p">;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">ni</span><span class="p">);</span>                                 
+                                                                  
+  <span class="c">% lag-independent kernel:                                       </span>
+  <span class="n">tf</span><span class="p">=</span><span class="n">dec_tfd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="s">&#39;LI&#39;</span><span class="p">,{</span><span class="mi">51</span><span class="p">,</span><span class="s">&#39;hann&#39;</span><span class="p">},</span><span class="n">Ntime</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">ki</span><span class="p">);</span>                       
+  <span class="n">figure</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span> <span class="n">clf</span><span class="p">;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="mi">1</span><span class="p">,[],</span><span class="n">ki</span><span class="o">./</span><span class="p">(</span><span class="n">N</span><span class="o">*</span><span class="mi">2</span><span class="p">));</span>                       
+</code></pre></div>
+
+<figure>
+    <img src="/images/decimated_TFDs_examples.png" alt="decimated TFD examples" />	   
+	<figcaption>Computing decimated TFDs for the four kernel types (in Matlab environment).</figcaption>
+</figure>
+
+<p>Type <code>help dec_tfd</code> for more details on this function.</p>
+
+<h1 id="files">files</h1>
+<p>All Matlab files (.m files) have a description and an example in the header. To read this
+header, type <code>help &lt;filename.m&gt;</code> in Matlab.  Directory structure is as follows: </p>
+
+<div class="highlight"><pre><code class="text">├── common             # directory: files to generate kernel functions
+├── decimated_TFDs     # directory: files to generate decimated TFD for the 4 kernel types
+├── dec_tfd.m          # file: compute decimated TFDs
+├── full_tfd.m         # file: compute oversampled TFDs
+├── full_TFDs          # directory: files to generate oversampled TFD for the 4 kernel types
+├── LICENCE.md         # file: licence file
+├── load_curdir.m      # file: adds paths for matlab/octave
+├── README.md          # file: this README file
+└── utils              # directory: miscellaneous files
+</code></pre></div>
+
+<h1 id="computational-load">computational load</h1>
+
+<p>The computational load is measured in terms of the number of FFTs required to compute the
+TFD. Memory load is measured as number of real-valued numbers required to compute and store the
+TFD. The real-valued signal (i.e. input signal) is of length N.</p>
+
+<p>Computational load for the oversampled TFDs (using <code>full_tfd.m</code>) is as follows for the
+four kernel types:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>kernel-type</th>
+      <th style="text-align: center">computational load</th>
+      <th style="text-align: center">memory</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>non-separable</td>
+      <td style="text-align: center">3N²/2 log₂ N</td>
+      <td style="text-align: center">N²</td>
+    </tr>
+    <tr>
+      <td>LI</td>
+      <td style="text-align: center">NNtime/2 log₂ Ntime</td>
+      <td style="text-align: center">Ntime × N</td>
+    </tr>
+    <tr>
+      <td>DI</td>
+      <td style="text-align: center">NNfreq/2 log₂ Nfreq</td>
+      <td style="text-align: center">N × Nfreq</td>
+    </tr>
+    <tr>
+      <td>separable</td>
+      <td style="text-align: center">Pₕ(N log₂N +Ntime log₂Ntime)</td>
+      <td style="text-align: center">Ntime × Nfreq</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td style="text-align: center">+ NtimeNfreq/2 log₂ Nfreq</td>
+      <td style="text-align: center"> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>assuming the FFT of length-N signal requires Nlog₂N computations and using the notation:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>symbol</th>
+      <th>explanation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>N</td>
+      <td>length of signal</td>
+    </tr>
+    <tr>
+      <td>Ntime</td>
+      <td>length of TFD in time direction</td>
+    </tr>
+    <tr>
+      <td>Nfreq</td>
+      <td>length of TFD in frequency direction</td>
+    </tr>
+    <tr>
+      <td>Pₕ</td>
+      <td>Pₕ = P/2, where P is the length of the lag window</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>And for the decimated TFDs (using <code>dec_tfd.m</code>):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>kernel-type</th>
+      <th style="text-align: center">computational load</th>
+      <th style="text-align: center">memory</th>
+      <th>grid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>non-separable</td>
+      <td style="text-align: center">N²/2 log₂ N + LJ/2 log₂ J</td>
+      <td style="text-align: center">L × J</td>
+      <td>ρ[an,bn]</td>
+    </tr>
+    <tr>
+      <td>LI</td>
+      <td style="text-align: center">VLtime/2 log₂ Ltime</td>
+      <td style="text-align: center">Ltime × V</td>
+      <td>ρ[an,kᵢ]</td>
+    </tr>
+    <tr>
+      <td>DI</td>
+      <td style="text-align: center">UJfreq/2 log₂ Jfreq</td>
+      <td style="text-align: center">U × Jfreq</td>
+      <td>ρ[nᵢ,bk]</td>
+    </tr>
+    <tr>
+      <td>separable</td>
+      <td style="text-align: center">JfreqN/2 log₂N</td>
+      <td style="text-align: center">Ltime × Jfreq</td>
+      <td>ρ[an,bn]</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td style="text-align: center">+ LtimeJfreq log₂ LtimeJfreq</td>
+      <td style="text-align: center"> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>using the extra notation:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>symbol</th>
+      <th>explanation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>U</td>
+      <td>length of sequence nᵢ {nᵢ for 1&lt;=i&lt;=U}, U&lt;=N and 0&lt;=nᵢ&lt;=N-1</td>
+    </tr>
+    <tr>
+      <td>V</td>
+      <td>length of sequence kᵢ {kᵢ for 1&lt;=i&lt;=V}, V&lt;=N and 0&lt;=kᵢ&lt;=N-1</td>
+    </tr>
+    <tr>
+      <td>J</td>
+      <td>N/b, b is decimation integer in frequency direction</td>
+    </tr>
+    <tr>
+      <td>L</td>
+      <td>N/a, a is decimation integer in time direction</td>
+    </tr>
+    <tr>
+      <td>Jfreq</td>
+      <td>Nfreq/b, b is decimation integer in frequency direction</td>
+    </tr>
+    <tr>
+      <td>Ltime</td>
+      <td>Ntime/a, a is decimation integer in time direction</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="requirements">requirements</h1>
+<p>Either Matlab (R2012 or newer,
+<a href="http://www.mathworks.co.uk/products/matlab/">Mathworks website</a>) or Octave (v3.6 or
+newer, <a href="http://www.gnu.org/software/octave/index.html">Octave website</a>, with the
+‘octave-signal’ add-on package).  </p>
+
+<h1 id="test-computer-setup">test computer setup</h1>
+<ul>
+  <li>hardware:  Intel(R) Xeon(R) CPU E5-1603 0 @ 2.80GHz; 8GB memory.</li>
+  <li>operating system: Ubuntu GNU/Linux x86_64 distribution (Trusty Tahr, 14.04), with Linux kernel 3.13.0-27-generic</li>
+  <li>software: Octave 3.8.1 (using Gnuplot 4.6 patchlevel 4), with ‘octave-signal’ toolbox and Matlab (R2009b, R2012a, and R2013a)</li>
+</ul>
+
+<hr />
+
+<h1 id="licence">licence</h1>
+
+<div class="highlight"><pre><code class="text">Copyright (c) 2014, John M. O&#39; Toole, University College Cork
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+  Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+  Redistributions in binary form must reproduce the above copyright notice, this
+  list of conditions and the following disclaimer in the documentation and/or
+  other materials provided with the distribution.
+
+  Neither the name of the University College Cork nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+</code></pre></div>
+
+<h1 id="references">references</h1>
+
+<ol>
+  <li>
+    <p>J.M. O’ Toole and B. Boashash, “Memory Efficient Algorithms for TFDs”, Article 6.6, Chapter 6, in Time–Frequency Signal Processing and Analysis: A Comprenhensive Reference, Second Edition, 2014, in press.</p>
+  </li>
+  <li>
+    <p>J.M. O’ Toole and B. Boashash, “Fast and memory-efficient algorithms for computing quadratic time–frequency distributions”, Applied and Computational Harmonic Analysis, vol. 35, no. 2, pp. 350–358, 2013.</p>
+  </li>
+  <li>
+    <p>J.M. Oʼ Toole, M. Mesbah, and B. Boashash, “Improved discrete definition of quadratic time–frequency distributions,” IEEE Transactions on Signal Processing, vol. 58, Feb. 2010, pp. 906-911.</p>
+  </li>
+  <li>
+    <p>J.M. O’ Toole, M. Mesbah, and B. Boashash, “A New Discrete Analytic Signal for Reducing Aliasing in the Discrete Wigner-Ville Distribution”, IEEE Transactions on Signal Processing, vol. 56, no. 11, pp. 5427-5434, Nov. 2008.</p>
+  </li>
+  <li>
+    <p>J.M. Oʼ Toole, M. Mesbah, and B. Boashash, “Algorithms for discrete quadratic time–frequency distributions,” WSEAS Transactions on Signal Processing, vol. 4, May. 2008, pp. 320-329.</p>
+  </li>
+</ol>
+
+<hr />
+
+<h1 id="contact">contact</h1>
+
+<p>John M. O’ Toole</p>
+
+<p>Neonatal Brain Research Group,<br />
+Irish Centre for Fetal and Neonatal Translational Research (INFANT),<br />
+Department of Paediatrics and Child Health,<br />
+University College Dublin,<br />
+Western Gateway Building, Room 2.17,<br />
+Cork, Ireland</p>
+
+<ul>
+  <li>email: j.otoole <at> ieee.org</at></li>
+  <li>web: http://otoolej.github.io/</li>
+</ul>
+
+    </div><!-- /.article-wrap -->
+  </article>
+</div><!-- /#index -->
+
+<div class="footer-wrap">
+  <footer>
+    <span>&copy; 2014 J.M. O' Toole. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">Minimal Mistakes</a> theme.</span>
+
+  </footer>
+</div><!-- /.footer-wrap -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="http://otoolej.github.io//assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="http://otoolej.github.io//assets/js/scripts.min.js"></script>
+          
+
+</body>
+</html>
