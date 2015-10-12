@@ -155,7 +155,7 @@ user-friendly package please use the <a href="/code/memeff_TFDs/">memory-efficie
 <p>(see <a href="#ref_acha">[1]</a> for more details).
 Code is organised in folders as follows:</p>
 
-<div class="highlight"><pre><code class="text">fast_TFDs/
+<div class="highlight"><pre><code class="language-text" data-lang="text">fast_TFDs/
 ├── full_DTFD/     # Set1 algorithms: compute exact TFDs
 │   └── .m files
 ├── dec_DTFD/      # Set2 algorithms: compute decimated TFDs
@@ -163,8 +163,7 @@ Code is organised in folders as follows:</p>
 ├── utils/         # extra functions 
 │   └── .m files 
 └── common/        # common functions used by Set1 and Set2 algorithms
-    └── .m files 
-</code></pre></div>
+    └── .m files</code></pre></div>
 
 <p>These programs should run in either Matlab (v7.9.0) or Octave (v3.2.4)</p>
 
@@ -173,27 +172,19 @@ Code is organised in folders as follows:</p>
 <h2 id="quick-start">Quick Start</h2>
 <p>To start, in Matlab (or Octave) load the paths:</p>
 
-<div class="highlight"><pre><code class="matlab">   <span class="o">&gt;&gt;</span> <span class="n">load_paths_DTFDs</span><span class="p">;</span>
-   
-</code></pre></div>
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="o">&gt;&gt;</span> <span class="n">load_paths_DTFDs</span><span class="p">;</span></code></pre></div>
 
 <p>Next, generate a test signal:</p>
 
-<div class="highlight"><pre><code class="matlab">   <span class="o">&gt;&gt;</span> <span class="n">N</span><span class="p">=</span><span class="mi">128</span><span class="p">;</span> <span class="n">x</span><span class="p">=</span><span class="n">gen_LFM</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.3</span><span class="p">);</span>
-   
-</code></pre></div>
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="o">&gt;&gt;</span> <span class="n">N</span><span class="p">=</span><span class="mi">128</span><span class="p">;</span> <span class="n">x</span><span class="p">=</span><span class="n">gen_LFM</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.3</span><span class="p">);</span></code></pre></div>
 
 <p>Second, generate a TFD with a separable kernel:</p>
 
-<div class="highlight"><pre><code class="matlab">   <span class="o">&gt;&gt;</span> <span class="n">tf</span><span class="p">=</span><span class="n">dtfd_sep1</span><span class="p">(</span><span class="n">x</span><span class="p">,{</span><span class="mi">51</span><span class="p">,</span><span class="s">&#39;hamm&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">},{</span><span class="mi">171</span><span class="p">,</span><span class="s">&#39;hann&#39;</span><span class="p">},</span><span class="mi">256</span><span class="p">,</span><span class="mi">128</span><span class="p">);</span> 
-   
-</code></pre></div>
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="o">&gt;&gt;</span> <span class="n">tf</span><span class="p">=</span><span class="n">dtfd_sep1</span><span class="p">(</span><span class="n">x</span><span class="p">,{</span><span class="mi">51</span><span class="p">,</span><span class="s">&#39;hamm&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">},{</span><span class="mi">171</span><span class="p">,</span><span class="s">&#39;hann&#39;</span><span class="p">},</span><span class="mi">256</span><span class="p">,</span><span class="mi">128</span><span class="p">);</span></code></pre></div>
 
 <p>Third, plot the TFD:</p>
 
-<div class="highlight"><pre><code class="matlab">   <span class="o">&gt;&gt;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
-   
-</code></pre></div>
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="o">&gt;&gt;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span><span class="n">x</span><span class="p">);</span></code></pre></div>
 
 <figure>
         <img src="/images/lfm_sep_eg1_rs.png" alt="LFM example" />					      
@@ -203,15 +194,13 @@ Code is organised in folders as follows:</p>
 <h2 id="examples">Examples</h2>
 <p>In all the examples, start by adding the paths by running the command</p>
 
-<div class="highlight"><pre><code class="matlab">   <span class="o">&gt;&gt;</span> <span class="n">load_paths_DTFDs</span><span class="p">;</span>
-   
-</code></pre></div>
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="o">&gt;&gt;</span> <span class="n">load_paths_DTFDs</span><span class="p">;</span></code></pre></div>
 
 <h3 id="example-1-choi-williams">Example 1: Choi-Williams</h3>
 
 <p>Using the exact-TFD algorithm (from Set1 <a href="#ref_acha">[1]</a>):</p>
 
-<div class="highlight"><pre><code class="matlab">      <span class="c">% 1. generate test signal:</span>
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="c">% 1. generate test signal:</span>
       <span class="n">N</span><span class="p">=</span><span class="mi">256</span><span class="p">;</span> 
       <span class="n">x</span><span class="p">=</span><span class="n">gen_LFM</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.15</span><span class="p">)</span><span class="o">+</span><span class="n">gen_LFM</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.35</span><span class="p">);</span>
 
@@ -219,9 +208,7 @@ Code is organised in folders as follows:</p>
       <span class="n">c</span><span class="p">=</span><span class="n">dtfd_nonsep</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="s">&#39;cw&#39;</span><span class="p">,{</span><span class="mi">30</span><span class="p">});</span> 
 
       <span class="c">% 3. plot</span>
-      <span class="n">clf</span><span class="p">;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
-   
-</code></pre></div>
+      <span class="n">clf</span><span class="p">;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">x</span><span class="p">);</span></code></pre></div>
 
 <div class="centre picture">
     <img src="/images/lfms_cw_eg1_rs.png" alt="Two LFMs example" />
@@ -231,7 +218,7 @@ Code is organised in folders as follows:</p>
 
 <p>Using exact-TFD algorithm from Set1 <a href="#ref_acha">[1]</a></p>
 
-<div class="highlight"><pre><code class="matlab">      <span class="c">% 1. generate test signal:</span>
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="c">% 1. generate test signal:</span>
       <span class="n">N</span><span class="p">=</span><span class="mi">10000</span><span class="p">;</span> 
       <span class="n">x</span><span class="p">=</span><span class="n">gen_LFM</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.3</span><span class="p">)</span><span class="o">+</span><span class="n">gen_LFM</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.1</span><span class="p">);</span>
 
@@ -240,9 +227,7 @@ Code is organised in folders as follows:</p>
       <span class="n">c</span><span class="p">=</span><span class="n">dtfd_sep1</span><span class="p">(</span><span class="n">x</span><span class="p">,{</span><span class="mi">51</span><span class="p">,</span><span class="s">&#39;hamm&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">},{</span><span class="mi">271</span><span class="p">,</span><span class="s">&#39;hann&#39;</span><span class="p">},</span><span class="n">Ntime</span><span class="p">,</span><span class="n">Nfreq</span><span class="p">);</span> 
 
       <span class="c">% 3. plot</span>
-      <span class="n">clf</span><span class="p">;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
-   
-</code></pre></div>
+      <span class="n">clf</span><span class="p">;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">x</span><span class="p">);</span></code></pre></div>
 
 <div class="centre picture">
     <img src="/images/cross_LFMs_sep_eg1_rs.png" alt="cross-LFMs example" />
@@ -252,7 +237,7 @@ Code is organised in folders as follows:</p>
 
 <p>Using decimated TFD algorithm (from Set2 <a href="#ref_acha">[1]</a>) generating selective time portions of the signal:</p>
 
-<div class="highlight"><pre><code class="matlab">      <span class="c">% 1. generate test signal:</span>
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="c">% 1. generate test signal:</span>
       <span class="n">N</span><span class="p">=</span><span class="mi">171</span><span class="p">;</span> 
       <span class="n">x</span><span class="p">=</span><span class="n">gen_LFM</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.4</span><span class="p">);</span>
 
@@ -262,9 +247,7 @@ Code is organised in folders as follows:</p>
       <span class="n">tf</span><span class="p">=</span><span class="n">dec_dtfd_DI</span><span class="p">(</span><span class="n">x</span><span class="p">,{</span><span class="mi">51</span><span class="p">,</span><span class="s">&#39;hamm&#39;</span><span class="p">},</span><span class="n">Nfreq</span><span class="p">,</span><span class="n">time_dec</span><span class="p">,</span><span class="n">freq_dec</span><span class="p">);</span> 
 
       <span class="c">% 3. plot</span>
-      <span class="n">clf</span><span class="p">;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">tf</span><span class="p">);</span>
-   
-</code></pre></div>
+      <span class="n">clf</span><span class="p">;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">tf</span><span class="p">);</span></code></pre></div>
 
 <div class="centre picture">
     <img src="/images/LFM_DI_cut_sep_eg1_rs.png" alt="Doppler-independent example" />
@@ -274,7 +257,7 @@ Code is organised in folders as follows:</p>
 
 <p>using decimated TFD algorithm from Set2 <a href="#ref_acha">[1]</a>.</p>
 
-<div class="highlight"><pre><code class="matlab">      <span class="c">% 1. generate test signal:</span>
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="c">% 1. generate test signal:</span>
       <span class="n">N</span><span class="p">=</span><span class="mi">10000</span><span class="p">;</span> 
       <span class="n">x</span><span class="p">=</span><span class="n">gen_LFM</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.3</span><span class="p">)</span><span class="o">+</span><span class="n">gen_LFM</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.1</span><span class="p">);</span>
 
@@ -285,9 +268,7 @@ Code is organised in folders as follows:</p>
                      <span class="n">Ntime</span><span class="p">,</span><span class="n">Nfreq</span><span class="p">,</span><span class="n">time_dec</span><span class="p">,</span><span class="n">freq_dec</span><span class="p">);</span> 
 
       <span class="c">% 3. plot</span>
-      <span class="n">clf</span><span class="p">;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
-   
-</code></pre></div>
+      <span class="n">clf</span><span class="p">;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">x</span><span class="p">);</span></code></pre></div>
 
 <div class="centre picture">
     <img src="/images/dec_cross_LFM_eg1_rs.png" alt="Doppler-independent example" />
@@ -304,7 +285,7 @@ Matlab (R2009b, R2012a, and R2013a)</li>
 
 <h3 id="copyright">Copyright</h3>
 
-<div class="highlight"><pre><code class="text">Copyright (c) 2008-2010 John M. O&#39; Toole, The University of Queensland
+<div class="highlight"><pre><code class="language-text" data-lang="text">Copyright (c) 2008-2010 John M. O&#39; Toole, The University of Queensland
 Copyright (c) 2011-2012 John M. O&#39; Toole, University of Deusto
 Copyright (c) 2013 John M. O&#39; Toole, University College Cork
 All rights reserved.
@@ -337,8 +318,7 @@ Email:  j.otoole@ieee.org
   LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
   USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
-  DAMAGE.
-</code></pre></div>
+  DAMAGE.</code></pre></div>
 
 <p>Please cite appropriates reference in <a href="#references">[1]</a> if you use this software to generate results
 or prepare data for publication.</p>
@@ -369,7 +349,7 @@ or prepare data for publication.</p>
 
 <div class="footer-wrap">
   <footer>
-    <span>&copy; 2014 J.M. O' Toole. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">Minimal Mistakes</a> theme.</span>
+    <span>&copy; 2015 J.M. O' Toole. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">Minimal Mistakes</a> theme.</span>
 
   </footer>
 </div><!-- /.footer-wrap -->

@@ -1,0 +1,302 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>Method to detect bursts in the EEG of preterm infants &#8211; signal-plus-noise /sn/</title>
+<meta name="description" content="">
+<meta name="keywords" content="code, matlab, burst detector, SAT detector, SATs, inter-burst interval, IBI, inter-SAT, SVM, support vector machine">
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Method to detect bursts in the EEG of preterm infants">
+<meta property="og:description" content="code+publications for JM O' Toole">
+<meta property="og:url" content="http://otoolej.github.io//code/burst_detector/index.html">
+<meta property="og:site_name" content="signal-plus-noise /sn/">
+
+
+
+
+
+<link rel="canonical" href="http://otoolej.github.io//code/burst_detector/">
+<link href="http://otoolej.github.io//feed.xml" type="application/atom+xml" rel="alternate" title="signal-plus-noise /sn/ Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700|PT+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://otoolej.github.io//assets/css/main.min.css">
+
+<!--[if (lt IE 9) & (!IEMobile)]>
+<link rel="stylesheet" href="http://otoolej.github.io//assets/css/ie.min.css">
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- Load Modernizr -->
+<script src="http://otoolej.github.io//assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="http://otoolej.github.io//favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="http://otoolej.github.io//favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="http://otoolej.github.io//images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://otoolej.github.io//images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://otoolej.github.io//images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://otoolej.github.io//images/apple-touch-icon-144x144-precomposed.png">
+
+</head>
+
+<body class="page" itemscope itemtype="http://schema.org/WebPage">
+
+<!--[if lt IE 9]><div class="browser-upgrade alert alert-info">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div><![endif]-->
+
+<div class="navigation-wrapper">
+	<div class="site-name">
+		<a href="http://otoolej.github.io/">signal-plus-noise /sn/</a>
+	</div><!-- /.site-name -->
+	<div class="top-navigation">
+		<nav role="navigation" itemscope itemtype="http://schema.org/SiteNavigationElement">
+		    <ul>
+		        
+				<li><a href="http://otoolej.github.io//about" >About</a></li>
+		        
+				<li><a href="http://otoolej.github.io//pubs" >Publications</a></li>
+		        
+				<li><a href="http://otoolej.github.io//code" >Code</a></li>
+		        
+		        <li><i class="icon-feed"></i> <a href="http://otoolej.github.io//feed.xml" title="Atom/RSS feed">Feed</a>
+		    </ul>
+		</nav>
+	</div><!-- /.top-navigation -->
+</div><!-- /.navigation-wrapper -->
+
+
+
+<div id="main" role="main"  itemprop="mainContentOfPage">
+  <div class="article-author-top">
+    <img src="http://otoolej.github.io//images/bio-photo.jpg" class="bio-photo" alt="J.M. O' Toole bio photo"></a>
+<h3>J.M. O' Toole</h3>
+<p>Researcher @ Neonatal Brain Research Group, UCC, Ireland. Topic: biomedical signal processing</p>
+
+
+
+
+
+<a href="http://github.com/otoolej" class="author-social" target="_blank"><i class="icon-github"></i> Github</a>
+
+
+  </div>
+  <article itemscope itemtype="http://schema.org/CreativeWork">
+    <h1 itemprop="name">Method to detect bursts in the EEG of preterm infants</h1>
+    <div class="article-wrap" itemprop="text">
+      <section id="table-of-contents" class="toc">
+  <header>
+    <h3>Contents</h3>
+  </header>
+<div id="drawer">
+<ul id="markdown-toc">
+  <li><a href="#download">download</a></li>
+  <li><a href="#overview">overview</a></li>
+  <li><a href="#quick-start">quick start</a></li>
+  <li><a href="#example">example</a></li>
+  <li><a href="#files">files</a></li>
+  <li><a href="#requirements">requirements</a></li>
+  <li><a href="#test-computer-setup">test computer setup</a></li>
+  <li><a href="#licence">licence</a></li>
+  <li><a href="#references">references</a></li>
+  <li><a href="#contact">contact</a></li>
+</ul>
+
+  </div>
+</section>
+<!-- /#table-of-contents -->
+
+<p>Collection of M-files (computer code) for method to detect bursts in preterm EEG, as
+described in <a href="#references">[1]</a>.  Requires Matlab or Octave programming environments.</p>
+
+<h2 id="download">download</h2>
+<p>code will be upload after the journal article review process for <a href="#references">[1]</a>.</p>
+
+<h2 id="overview">overview</h2>
+
+<figure>
+    <img src="/images/detector_example_for_website.png" alt="burst detector example" />	   
+	<figcaption>Example of burst detector (purple annotation) on channel F3-C3.</figcaption>
+</figure>
+
+<hr />
+
+<p>A simple method to detect bursts in the EEG of preterm infants. The method was developed
+by assessing multiple frequency and amplitude features of bursts. Selected features were combined in
+a classifier (support vector machine). After a feature selection and training procedure,
+the detector consisted of eight features which are combined in a linear support vector
+machine. The code here implements this detector, which was trained on annotations from
+1-channel of 10 minute EEG recordings from 36 preterm infants.</p>
+
+<hr />
+
+<figure> 
+    <img src="/images/detector_example_for_website_v2.png" alt="burst detector example" />	   
+	<figcaption>Another example of burst detector on channel C4-T4.</figcaption>
+</figure>
+
+<h2 id="quick-start">quick start</h2>
+<p>First, add paths using the <code>load_curdir</code> function:</p>
+
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="o">&gt;&gt;</span> <span class="n">load_curdir</span><span class="p">;</span></code></pre></div>
+
+<h2 id="example">example</h2>
+
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="c">% use impulsive noise test signal</span>
+<span class="n">N</span><span class="p">=</span><span class="mi">5000</span><span class="p">;</span>  <span class="n">Fs</span><span class="p">=</span><span class="mi">64</span><span class="p">;</span> 
+<span class="n">x</span><span class="p">=</span><span class="n">gen_impulsive_noise</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.*</span><span class="mi">10</span><span class="p">;</span>
+
+<span class="c">% detect the bursts:</span>
+<span class="p">[</span><span class="n">burst_anno</span><span class="p">,</span><span class="n">svm_out</span><span class="p">]=</span><span class="n">eeg_burst_detector</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">Fs</span><span class="p">);</span>
+
+<span class="c">% and plot:</span>
+<span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="n">clf</span><span class="p">;</span> 
+<span class="n">t</span><span class="p">=(</span><span class="mi">0</span><span class="p">:</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">./</span><span class="n">Fs</span><span class="p">;</span>
+<span class="n">hax</span><span class="p">(</span><span class="mi">1</span><span class="p">)=</span><span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">);</span> 
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
+<span class="n">hax</span><span class="p">(</span><span class="mi">2</span><span class="p">)=</span><span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">);</span> <span class="n">hold</span> <span class="n">all</span><span class="p">;</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">burst_anno</span><span class="p">);</span> <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">svm_out</span><span class="p">);</span>
+<span class="n">linkaxes</span><span class="p">(</span><span class="n">hax</span><span class="p">,</span><span class="s">&#39;x&#39;</span><span class="p">);</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;time (seconds)&#39;</span><span class="p">);</span></code></pre></div>
+
+<figure>
+    <img src="/images/burst_detector_impulsive_noise_example.png" alt="burst detector example" />	   
+	<figcaption>Burst detector (in Matlab environment) for impulsive noise test signal.</figcaption>
+</figure>
+
+<h2 id="files">files</h2>
+<p>All Matlab files (.m files) have a description and an example in the header. To read this
+header, type <code>help &lt;filename.m&gt;</code> in Matlab.  Directory structure is as follows:</p>
+
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab">├── <span class="n">bd_parameters</span><span class="p">.</span><span class="n">m</span>               # <span class="n">parameters</span> <span class="k">for</span> <span class="n">the</span> <span class="n">method</span> <span class="n">are</span> <span class="n">defined</span> <span class="n">here</span>
+├── <span class="n">eeg_burst_detector</span><span class="p">.</span><span class="n">m</span>          # <span class="n">burst</span> <span class="n">detector</span> <span class="k">for</span> <span class="n">multi</span><span class="o">-</span><span class="n">channel</span> <span class="n">EEG</span>
+├── <span class="n">estimate_features</span>
+│   ├── <span class="n">edo</span><span class="p">.</span><span class="n">m</span>                       # <span class="n">envelope</span><span class="o">--</span><span class="n">derivative</span> <span class="n">operator</span>
+│   ├── <span class="n">env</span><span class="p">.</span><span class="n">m</span>                       # <span class="n">signal</span> <span class="n">envelope</span> <span class="p">(</span><span class="n">using</span> <span class="n">Hilber</span> <span class="n">transform</span><span class="p">)</span>
+│   ├── <span class="n">fd</span><span class="p">.</span><span class="n">m</span>                        # <span class="n">fractal</span> <span class="n">dimension</span> <span class="p">(</span><span class="n">using</span> <span class="n">Higuichi</span> <span class="n">method</span><span class="p">)</span>
+│   ├── <span class="n">if_</span><span class="p">.</span><span class="n">m</span>                       # <span class="n">instantaneous</span> <span class="n">frequency</span> <span class="p">(</span><span class="n">using</span> <span class="n">CFD</span> <span class="n">estimate</span><span class="p">)</span>
+│   ├── <span class="n">psd_r2</span><span class="p">.</span><span class="n">m</span>                    # <span class="n">fit</span> <span class="n">of</span> <span class="n">linear</span> <span class="n">regression</span> <span class="n">to</span> <span class="nb">log</span><span class="o">-</span><span class="nb">log</span> <span class="n">spectrum</span>
+│   └── <span class="n">rel_spec_power</span><span class="p">.</span><span class="n">m</span>            # <span class="n">relative</span> <span class="n">spectral</span> <span class="n">power</span>
+├── <span class="n">gen_features</span><span class="p">.</span><span class="n">m</span>                  # <span class="n">generate</span> <span class="n">features</span>
+├── <span class="n">load_curdir</span><span class="p">.</span><span class="n">m</span>                   # <span class="n">load</span> <span class="n">the</span> <span class="n">path</span>
+└── <span class="n">utils</span>
+└── <span class="n">do_bandpass_filtering</span><span class="p">.</span><span class="n">m</span>       # <span class="n">bandpass</span> <span class="n">filtering</span> <span class="p">(</span><span class="n">IIR</span> <span class="n">filter</span><span class="p">)</span>
+    ├── <span class="n">epoch_window</span><span class="p">.</span><span class="n">m</span>              # <span class="n">epoch</span> <span class="n">window</span> <span class="nb">size</span> <span class="n">and</span> <span class="n">hop</span> <span class="n">lengths</span>
+    ├── <span class="n">get_window</span><span class="p">.</span><span class="n">m</span>                # <span class="n">generate</span> <span class="n">epoch</span> <span class="n">window</span>
+    └── <span class="n">gen_impulsive_noise</span><span class="p">.</span><span class="n">m</span>       # <span class="n">impulsive</span> <span class="n">noise</span></code></pre></div>
+
+<h2 id="requirements">requirements</h2>
+<p>Either Matlab (R2013 or newer,
+<a href="http://www.mathworks.co.uk/products/matlab/">Mathworks website</a>) or Octave (v3.8 or
+newer, <a href="http://www.gnu.org/software/octave/index.html">Octave website</a>, with the
+‘octave-signal’ add-on package).</p>
+
+<h2 id="test-computer-setup">test computer setup</h2>
+<ul>
+  <li>hardware:  Intel(R) Xeon(R) CPU E5-1603 0 @ 2.80GHz; 8GB memory.</li>
+  <li>operating system: Ubuntu GNU/Linux x86_64 distribution (Vivid Vervet, 15.04), with Linux
+kernel 3.19.0-30-generic </li>
+  <li>software: Octave 3.8.2 (using Gnuplot 4.6 patchlevel 6), with ‘octave-signal’ toolbox, and Matlab (R2013a)</li>
+</ul>
+
+<hr />
+
+<h2 id="licence">licence</h2>
+
+<div class="highlight"><pre><code class="language-text" data-lang="text">Copyright (c) 2015, John M. O&#39; Toole, University College Cork
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+  Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+  Redistributions in binary form must reproduce the above copyright notice, this
+  list of conditions and the following disclaimer in the documentation and/or
+  other materials provided with the distribution.
+
+  Neither the name of the University College Cork nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</code></pre></div>
+
+<h2 id="references">references</h2>
+
+<ol>
+  <li>
+    <p>JM O’ Toole, GB Boylan, RO Lloyd, RM Goulding, S Vanhatalo, and NJ Stevenson,
+“Detecting Bursts in the EEG of Premature Infants Using a Multi-Feature Approach”,
+submitted for review, 2015. <em>links:</em> <a href="http://otoolej.github.io/code/burst_detector/">code</a></p>
+  </li>
+  <li>
+    <p>JM O’ Toole and NJ Stevenson, “Assessing instantaneous energy in the EEG: a
+non-negative, frequency-weighted energy operator”, In Engineering in Medicine and Biology
+Society (EMBC), 36th Annual International Conference of the IEEE, pp. 3288-3291. IEEE,
+2014
+<em>links:</em> <a href="/pubs/PDFs/JMOToole_energy_EMBC14.pdf">paper</a> || <a href="/pubs/PDFs/EMBC_poster_Aug2014_NLEO.pdf">poster</a> || <a href="http://otoolej.github.io/code/nleo/">code</a>   </p>
+  </li>
+</ol>
+
+<hr />
+
+<h2 id="contact">contact</h2>
+
+<p>John M. O’ Toole</p>
+
+<p>Neonatal Brain Research Group,<br />
+Irish Centre for Fetal and Neonatal Translational Research (INFANT),<br />
+Department of Paediatrics and Child Health,<br />
+University College Dublin,<br />
+Western Gateway Building, Room 2.17,<br />
+Cork, Ireland</p>
+
+
+    </div><!-- /.article-wrap -->
+  </article>
+</div><!-- /#index -->
+
+<div class="footer-wrap">
+  <footer>
+    <span>&copy; 2015 J.M. O' Toole. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">Minimal Mistakes</a> theme.</span>
+
+  </footer>
+</div><!-- /.footer-wrap -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="http://otoolej.github.io//assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="http://otoolej.github.io//assets/js/scripts.min.js"></script>
+          
+
+</body>
+</html>

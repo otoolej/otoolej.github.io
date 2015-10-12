@@ -147,8 +147,7 @@ whereas this code is more general and (should be) easier to use.</p>
 <h1 id="quick-start">quick start</h1>
 <p>First, add paths using the <code>load_curdir</code> function:</p>
 
-<div class="highlight"><pre><code class="matlab">  <span class="o">&gt;&gt;</span> <span class="n">load_curdir</span><span class="p">;</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="o">&gt;&gt;</span> <span class="n">load_curdir</span><span class="p">;</span></code></pre></div>
 
 <hr />
 
@@ -165,7 +164,7 @@ oversampled TFDs, has four algorithms for specific kernel types, namely the
 <p>The function to generate these oversampled TFDs is <code>full_tfd.m</code>. The following
 examples, using a test signal, illustrates usage:</p>
 
-<div class="highlight"><pre><code class="matlab">  <span class="c">% generate test signal:</span>
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="c">% generate test signal:</span>
   <span class="n">N</span><span class="p">=</span><span class="mi">512</span><span class="p">;</span>
   <span class="n">x</span><span class="p">=</span><span class="n">gen_LFM</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.3</span><span class="p">)</span> <span class="o">+</span> <span class="n">gen_LFM</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.04</span><span class="p">);</span>
 
@@ -183,9 +182,7 @@ examples, using a test signal, illustrates usage:</p>
   
   <span class="c">% lag-independent kernel:</span>
   <span class="n">tf</span><span class="p">=</span><span class="n">full_tfd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="s">&#39;LI&#39;</span><span class="p">,{</span><span class="mi">51</span><span class="p">,</span><span class="s">&#39;hann&#39;</span><span class="p">},[],</span><span class="mi">256</span><span class="p">);</span>
-  <span class="n">figure</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span> <span class="n">clf</span><span class="p">;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span><span class="n">x</span><span class="p">);</span>
-  
-</code></pre></div>
+  <span class="n">figure</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span> <span class="n">clf</span><span class="p">;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span><span class="n">x</span><span class="p">);</span></code></pre></div>
 
 <figure>
     <img src="/images/full_TFDs_examples.png" alt="oversampled TFD examples" />	   
@@ -196,7 +193,7 @@ examples, using a test signal, illustrates usage:</p>
 <p>Likewise, the algorithms for decimated TFDs are specific to the four kernel types. The
 function <code>dec_tfd</code> computes the decimated TFDs, as the following examples show:</p>
 
-<div class="highlight"><pre><code class="matlab">  <span class="n">N</span><span class="p">=</span><span class="mi">1024</span><span class="p">;</span> <span class="n">Ntime</span><span class="p">=</span><span class="mi">64</span><span class="p">;</span> <span class="n">Nfreq</span><span class="p">=</span><span class="mi">128</span><span class="p">;</span>                                              
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">N</span><span class="p">=</span><span class="mi">1024</span><span class="p">;</span> <span class="n">Ntime</span><span class="p">=</span><span class="mi">64</span><span class="p">;</span> <span class="n">Nfreq</span><span class="p">=</span><span class="mi">128</span><span class="p">;</span>                                              
   <span class="n">a</span><span class="p">=</span><span class="mi">2</span><span class="p">;</span> <span class="n">b</span><span class="p">=</span><span class="mi">2</span><span class="p">;</span>                                                       
   <span class="n">ni</span><span class="p">=[</span><span class="mi">100</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">900</span><span class="p">];</span> <span class="n">ki</span><span class="p">=[</span><span class="mi">150</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">850</span><span class="p">];</span>                                 
                                                                   
@@ -216,8 +213,7 @@ function <code>dec_tfd</code> computes the decimated TFDs, as the following exam
                                                                   
   <span class="c">% lag-independent kernel:                                       </span>
   <span class="n">tf</span><span class="p">=</span><span class="n">dec_tfd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="s">&#39;LI&#39;</span><span class="p">,{</span><span class="mi">51</span><span class="p">,</span><span class="s">&#39;hann&#39;</span><span class="p">},</span><span class="n">Ntime</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">ki</span><span class="p">);</span>                       
-  <span class="n">figure</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span> <span class="n">clf</span><span class="p">;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="mi">1</span><span class="p">,[],</span><span class="n">ki</span><span class="o">./</span><span class="p">(</span><span class="n">N</span><span class="o">*</span><span class="mi">2</span><span class="p">));</span>                       
-</code></pre></div>
+  <span class="n">figure</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span> <span class="n">clf</span><span class="p">;</span> <span class="n">vtfd</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="mi">1</span><span class="p">,[],</span><span class="n">ki</span><span class="o">./</span><span class="p">(</span><span class="n">N</span><span class="o">*</span><span class="mi">2</span><span class="p">));</span></code></pre></div>
 
 <figure>
     <img src="/images/decimated_TFDs_examples.png" alt="decimated TFD examples" />	   
@@ -230,7 +226,7 @@ function <code>dec_tfd</code> computes the decimated TFDs, as the following exam
 <p>All Matlab files (.m files) have a description and an example in the header. To read this
 header, type <code>help &lt;filename.m&gt;</code> in Matlab.  Directory structure is as follows: </p>
 
-<div class="highlight"><pre><code class="text">├── common             # directory: files to generate kernel functions
+<div class="highlight"><pre><code class="language-text" data-lang="text">├── common             # directory: files to generate kernel functions
 ├── decimated_TFDs     # directory: files to generate decimated TFD for the 4 kernel types
 ├── dec_tfd.m          # file: compute decimated TFDs
 ├── full_tfd.m         # file: compute oversampled TFDs
@@ -238,8 +234,7 @@ header, type <code>help &lt;filename.m&gt;</code> in Matlab.  Directory structur
 ├── LICENCE.md         # file: licence file
 ├── load_curdir.m      # file: adds paths for matlab/octave
 ├── README.md          # file: this README file
-└── utils              # directory: miscellaneous files
-</code></pre></div>
+└── utils              # directory: miscellaneous files</code></pre></div>
 
 <h1 id="computational-load">computational load</h1>
 
@@ -415,7 +410,7 @@ newer, <a href="http://www.gnu.org/software/octave/index.html">Octave website</a
 
 <h1 id="licence">licence</h1>
 
-<div class="highlight"><pre><code class="text">Copyright (c) 2014, John M. O&#39; Toole, University College Cork
+<div class="highlight"><pre><code class="language-text" data-lang="text">Copyright (c) 2014, John M. O&#39; Toole, University College Cork
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -441,8 +436,7 @@ ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
 ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-</code></pre></div>
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</code></pre></div>
 
 <h1 id="references">references</h1>
 
@@ -488,7 +482,7 @@ Cork, Ireland</p>
 
 <div class="footer-wrap">
   <footer>
-    <span>&copy; 2014 J.M. O' Toole. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">Minimal Mistakes</a> theme.</span>
+    <span>&copy; 2015 J.M. O' Toole. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">Minimal Mistakes</a> theme.</span>
 
   </footer>
 </div><!-- /.footer-wrap -->

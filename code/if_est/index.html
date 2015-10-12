@@ -139,43 +139,39 @@
 <h2 id="quick-start">Quick Start</h2>
 <p>The first and necessary step is to add paths so Matlab can find all the code; use the <code>load_paths_all</code> function:</p>
 
-<div class="highlight"><pre><code class="matlab">  <span class="o">&gt;&gt;</span> <span class="n">load_paths_all</span><span class="p">;</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="o">&gt;&gt;</span> <span class="n">load_paths_all</span><span class="p">;</span></code></pre></div>
 
 <h3 id="files">Files</h3>
 <p>All Matlab files (.m files) have a description and an example in the header. To read this
 header, type <code>help &lt;filename.m&gt;</code> in Matlab.  Directory structure is as follows: </p>
 
-<div class="highlight"><pre><code class="text">.
+<div class="highlight"><pre><code class="language-text" data-lang="text">.
 ├── data                 # some signal examples in .mat files
 ├── methods              # IF estimation methods
 ├── synth_PLED_signal    # generate the synthetic (PLED-like) signals
 │   └── generate_data
-└── utils                # miscellaneous collection of utilities 
-</code></pre></div>
+└── utils                # miscellaneous collection of utilities</code></pre></div>
 
 <h3 id="example-1">Example 1</h3>
 <p>An example, from <a href="#references">[1]</a>, compares the proposed IF estimation method with other methods:</p>
 
-<div class="highlight"><pre><code class="matlab">  <span class="o">&gt;&gt;</span> <span class="n">demo_compare_3methods</span><span class="p">;</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="o">&gt;&gt;</span> <span class="n">demo_compare_3methods</span><span class="p">;</span></code></pre></div>
 
 <h3 id="example-2">Example 2</h3>
 <p>To generate the PLED (periodic lateralized epilepiform discharges) example figure from <a href="#references">[1]</a>:</p>
 
-<div class="highlight"><pre><code class="matlab">  <span class="o">&gt;&gt;</span> <span class="n">generate_Fig_IFest_example</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="o">&gt;&gt;</span> <span class="n">generate_Fig_IFest_example</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">);</span>
   <span class="o">&gt;&gt;</span> <span class="n">generate_Fig_IFest_example</span><span class="p">(</span><span class="s">&#39;b&#39;</span><span class="p">);</span>
   <span class="o">&gt;&gt;</span> <span class="n">generate_Fig_IFest_example</span><span class="p">(</span><span class="s">&#39;c&#39;</span><span class="p">);</span>
   <span class="o">&gt;&gt;</span> <span class="n">generate_Fig_IFest_example</span><span class="p">(</span><span class="s">&#39;d&#39;</span><span class="p">);</span>
-  <span class="o">&gt;&gt;</span> <span class="n">generate_Fig_IFest_example</span><span class="p">(</span><span class="s">&#39;e&#39;</span><span class="p">);</span>
-</code></pre></div>
+  <span class="o">&gt;&gt;</span> <span class="n">generate_Fig_IFest_example</span><span class="p">(</span><span class="s">&#39;e&#39;</span><span class="p">);</span></code></pre></div>
 
 <h2 id="synthetic-signals">Synthetic Signals</h2>
 
 <p>Call function <code>gen_synth_signals_plus_noise</code> (in the <code>synth_PLED_signals</code> directory) to
 generate the synthetic signals:</p>
 
-<div class="highlight"><pre><code class="matlab">   <span class="n">snr</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">Fs</span><span class="p">=</span><span class="mi">50</span><span class="p">;</span> 
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">snr</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">Fs</span><span class="p">=</span><span class="mi">50</span><span class="p">;</span> 
    <span class="n">N_iters</span><span class="p">=</span><span class="mi">10</span><span class="p">;</span> <span class="n">WAVEFORM_MONOPHASIC</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span>
    <span class="p">[</span><span class="n">sigs</span><span class="p">,</span><span class="n">IFs</span><span class="p">]=</span><span class="n">gen_synth_signals_plus_noise</span><span class="p">(</span><span class="n">snr</span><span class="p">,</span><span class="n">N_iters</span><span class="p">,</span><span class="n">Fs</span><span class="p">,</span><span class="s">&#39;CGN&#39;</span><span class="p">,</span><span class="n">WAVEFORM_MONOPHASIC</span><span class="p">);</span>
 
@@ -184,8 +180,7 @@ generate the synthetic signals:</p>
    <span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span> <span class="n">plot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">sigs</span><span class="p">(</span><span class="mi">1</span><span class="p">,:));</span> <span class="n">xlim</span><span class="p">([</span><span class="mi">5</span> <span class="mi">35</span><span class="p">]);</span>
    <span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;time (seconds)&#39;</span><span class="p">);</span>  <span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;amplitude&#39;</span><span class="p">);</span>
    <span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span> <span class="n">plot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">IFs</span><span class="p">(</span><span class="mi">1</span><span class="p">,:));</span> <span class="n">xlim</span><span class="p">([</span><span class="mi">5</span> <span class="mi">35</span><span class="p">]);</span>
-   <span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;time (seconds)&#39;</span><span class="p">);</span>  <span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;frequency (Hz)&#39;</span><span class="p">);</span>
-</code></pre></div>
+   <span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;time (seconds)&#39;</span><span class="p">);</span>  <span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;frequency (Hz)&#39;</span><span class="p">);</span></code></pre></div>
 
 <p>These synthetic signals use the Duffing waveform from <a href="#references">[4]</a>, stored in data
 file <code>data/duffing_waveforms.mat</code> directory.</p>
@@ -193,7 +188,7 @@ file <code>data/duffing_waveforms.mat</code> directory.</p>
 <h3 id="example-3">Example 3</h3>
 <p>Estimate the IF on synthetic signal using the proposed method (log-lag time–frequency filtering):</p>
 
-<div class="highlight"><pre><code class="matlab">   <span class="n">b</span><span class="p">=</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;synth_signal_example_0dB.mat&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">b</span><span class="p">=</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;synth_signal_example_0dB.mat&#39;</span><span class="p">);</span>
    <span class="p">[</span><span class="n">iflaw</span><span class="p">,</span><span class="n">t_scale</span><span class="p">,</span><span class="n">f_scale</span><span class="p">]=</span><span class="n">estIF_epoch_overlapadd</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">b</span><span class="p">.</span><span class="n">Fs</span><span class="p">);</span>
    
    <span class="c">% plot:</span>
@@ -204,8 +199,7 @@ file <code>data/duffing_waveforms.mat</code> directory.</p>
    <span class="n">legend</span><span class="p">(</span><span class="s">&#39;proposed&#39;</span><span class="p">,</span><span class="s">&#39;true IF&#39;</span><span class="p">);</span>
    <span class="n">xlim</span><span class="p">([</span><span class="mi">10</span> <span class="mi">30</span><span class="p">]);</span> <span class="n">ylim</span><span class="p">([</span><span class="mi">0</span> <span class="mi">2</span><span class="p">]);</span>
    <span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;time (seconds)&#39;</span><span class="p">);</span> 
-   <span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;frequency (Hz)&#39;</span><span class="p">);</span>
-</code></pre></div>
+   <span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;frequency (Hz)&#39;</span><span class="p">);</span></code></pre></div>
 
 <h2 id="requirements">Requirements</h2>
 
@@ -226,7 +220,7 @@ file <code>data/duffing_waveforms.mat</code> directory.</p>
 
 <h2 id="licence">Licence</h2>
 
-<div class="highlight"><pre><code class="text">Copyright (c) 2011 and 2012, John O&#39; Toole, University of Deusto
+<div class="highlight"><pre><code class="language-text" data-lang="text">Copyright (c) 2011 and 2012, John O&#39; Toole, University of Deusto
 Copyright (c) 2013, John O&#39; Toole, University College Cork
 All rights reserved.
 
@@ -253,8 +247,7 @@ ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
 ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-</code></pre></div>
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</code></pre></div>
 
 <h2 id="references">References</h2>
 
@@ -279,7 +272,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <div class="footer-wrap">
   <footer>
-    <span>&copy; 2014 J.M. O' Toole. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">Minimal Mistakes</a> theme.</span>
+    <span>&copy; 2015 J.M. O' Toole. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">Minimal Mistakes</a> theme.</span>
 
   </footer>
 </div><!-- /.footer-wrap -->
